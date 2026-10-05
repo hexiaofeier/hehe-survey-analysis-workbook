@@ -1,0 +1,4 @@
+interface:
+  display_name: "用户调研基础分析工作簿"
+  short_description: "按问卷与样本口径，逐题生成无图表的基础分析工作簿"
+  default_prompt: "使用 $hehe-survey-analysis-workbook 核对问卷、样本状态与分析要求；口径明确时直接生成无图表的基础统计分析工作簿，关键口径缺失时再询问。"

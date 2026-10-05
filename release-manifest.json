@@ -1,0 +1,40 @@
+{
+  "name": "hehe-survey-analysis-workbook",
+  "version": "2026.10.05-v1",
+  "entry_skill": "hehe-survey-analysis-workbook",
+  "install_policy": "standalone",
+  "required_skills": [],
+  "required_local_files": [
+    "SKILL.md",
+    "agents/openai.yaml",
+    "references/analysis-plan-template.md",
+    "references/statistical-methods.md",
+    "references/special-analysis-methods.md",
+    "references/workbook-output-spec.md"
+  ],
+  "source_sha256": {
+    "SKILL.md": "0ec6b66fc7ff722ad3742e8e7e6362e2d1a0da9a631446de06dc4f258b311123",
+    "agents/openai.yaml": "e69b1d100faf9dab42e9e260cb79597ba6972e493680b061761237a964f13d9c",
+    "references/analysis-plan-template.md": "4d9f2ea940c2e7950df0ce6284d67f0d7eb435b6bbcf6645e0fb38aac8da4211",
+    "references/statistical-methods.md": "e69fac30febbbc8e14d167cac946bfcbf9789237846a39233909d62df7859038",
+    "references/special-analysis-methods.md": "7551b1f07445854d59be531d17cb2c189e8b1b176b37f329ac24c3cd14da2378",
+    "references/workbook-output-spec.md": "22310e7bce6551300890956be24197b566c14c2d559ec043be5a4b2832e7c4f0"
+  },
+  "public_sha256": {
+    "SKILL.md": "b18ed3525dbfd2bf95e6f0017457a7bdec365fddb5c75d072140f3e197172c58",
+    "agents/openai.yaml": "82237a7ce66170956347970e22b66c43050a0747928185211f7e2d6b0d06e9b9",
+    "references/analysis-plan-template.md": "4d9f2ea940c2e7950df0ce6284d67f0d7eb435b6bbcf6645e0fb38aac8da4211",
+    "references/statistical-methods.md": "e69fac30febbbc8e14d167cac946bfcbf9789237846a39233909d62df7859038",
+    "references/special-analysis-methods.md": "7551b1f07445854d59be531d17cb2c189e8b1b176b37f329ac24c3cd14da2378",
+    "references/workbook-output-spec.md": "22310e7bce6551300890956be24197b566c14c2d559ec043be5a4b2832e7c4f0"
+  },
+  "export_changes": [
+    "Public name prefix and invocation",
+    "Portable output filename convention"
+  ],
+  "examples": {
+    "synthetic": true,
+    "rows": 120,
+    "source": "examples/robot-vacuum/responses.csv"
+  }
+}
