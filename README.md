@@ -131,6 +131,10 @@ flowchart LR
 
 仓库内只有一个独立Skill：`hehe-survey-analysis-workbook`。
 
+**直接安装：** 在 [Releases](https://github.com/hexiaofeier/hehe-survey-analysis-workbook/releases/latest) 下载安装包，解压后将同名Skill文件夹放入客户端的Skills目录。安装包附MIT许可证；完整示例、图片和复算工具留在仓库中。
+
+也可以克隆完整仓库：
+
 ```bash
 git clone https://github.com/hexiaofeier/hehe-survey-analysis-workbook.git
 ```
