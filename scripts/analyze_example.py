@@ -9,18 +9,33 @@ import argparse, csv, json, math
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLE = ROOT / 'examples/robot-vacuum'
 GROUPS = [('总体', lambda r: True), ('养宠家庭', lambda r: r['pet'] == '1'),
-          ('无宠家庭', lambda r: r['pet'] == '0')]
+          ('无宠家庭', lambda r: r['pet'] == '0'), ('每周1—2天', lambda r: r['frequency']=='1'), ('每周3—4天', lambda r: r['frequency']=='2'), ('每周5—7天', lambda r: r['frequency']=='3')]
 QUESTIONS = [
-    ('Q1', 'pet', '家中是否养宠物？', [('1', '养宠'), ('0', '无宠')], 'single', '购买与使用'),
-    ('Q2', 'frequency', '过去一周使用扫地机器人的天数？', [('1', '1—2天'), ('2', '3—4天'), ('3', '5—7天')], 'single', '购买与使用'),
-    ('Q3', 'problems', '过去一个月遇到过哪些问题？（多选）', [('hair', '毛发缠绕'), ('edge', '边角清洁不净'), ('noise', '噪音影响'), ('wash', '清洗维护费时')], 'multi', '购买与使用'),
+    ('Q1', 'pet', '家中是否养宠物？', [('1', '养宠'), ('0', '无宠')], 'single', '家庭与使用'),
+    ('Q2', 'frequency', '过去一周使用扫地机器人的天数？', [('1', '1—2天'), ('2', '3—4天'), ('3', '5—7天')], 'single', '家庭与使用'),
+    ('Q3', 'problems', '过去一个月遇到过哪些问题？（多选）', [('hair', '毛发缠绕'), ('edge', '边角清洁不净'), ('noise', '噪音影响'), ('wash', '清洗维护费时')], 'multi', '家庭与使用'),
     ('Q4', 'satisfaction', '对现用机器人的总体满意度？', [(str(i), s) for i, s in zip(range(1,6), ['非常不满意','比较不满意','一般','比较满意','非常满意'])], 'scale', '满意度与推荐'),
     ('Q5', 'support', '过去半年是否联系过售后？', [('1','联系过'),('0','没有')], 'single', '满意度与推荐'),
     ('Q6', 'support_score', '对最近一次售后服务的满意度？', [(str(i), s) for i, s in zip(range(1,6), ['非常不满意','比较不满意','一般','比较满意','非常满意'])], 'scale', '满意度与推荐'),
     ('Q7', 'recommend', '向亲友推荐现用机器人的意愿？', [(str(i),str(i)+'分') for i in range(11)], 'nps', '满意度与推荐'),
-    ('Q8', 'before', '体验前对新产品的购买兴趣？', [(str(i),str(i)+'分') for i in range(1,6)], 'scale', '满意度与推荐'),
-    ('Q9', 'after', '体验后对新产品的购买兴趣？', [(str(i),str(i)+'分') for i in range(1,6)], 'scale', '满意度与推荐'),
+    ('Q8', 'before', '体验前对新产品的购买兴趣？', [(str(i),str(i)+'分') for i in range(1,6)], 'scale', '新品体验'),
+    ('Q9', 'after', '体验后对新产品的购买兴趣？', [(str(i),str(i)+'分') for i in range(1,6)], 'scale', '新品体验'),
 ]
+
+def quality(rows):
+    marked=[]
+    for r in rows:
+        missing=[]
+        for qid,field,title,options,kind,sheet in QUESTIONS:
+            eligible=field!='support_score' or r['support']=='1'
+            if eligible and (r['problems_answered']=='0' if kind=='multi' else r[field]==''):
+                missing.append(qid)
+        marked.append({'id':r['id'],'quality':'证据不足' if missing else '合格',
+            'flag':'异常' if missing else '正常','reason':'部分应答题未答：'+ '、'.join(missing) if missing else '已具备字段未发现异常',
+            'evidence':'、'.join(missing)+'为空' if missing else 'ID唯一、取值与已有跳题一致',
+            'agent_recommendation':'纳入，逐题使用有效回答', 'user_decision':'纳入（合成示例预设）'})
+    return marked
+
 
 def analyze():
     with (EXAMPLE/'responses.csv').open(encoding='utf-8-sig', newline='') as f:
@@ -48,6 +63,15 @@ def analyze():
                 results.append({'id':rid,'qid':qid,'field':field,'metric':metric,'option':label,'group':group,'numerator':num,'base':n,'result':result})
             block['rows'].append({'label':label,'metric':metric,'ids':ids})
         blocks.append(block)
+    # Locations refer directly to visible question tables; the index stays outside Excel.
+    lookup={r['id']:r for r in results}; next_row={}
+    for block in blocks:
+        start=next_row.get(block['sheet'],2)
+        for offset,item in enumerate(block['rows']):
+            for group_index,result_id in enumerate(item['ids']):
+                lookup[result_id]['location']=f"{block['sheet']}!{chr(67+group_index)}{start+offset}"
+                lookup[result_id]['source_version']='synthetic-v1'
+        next_row[block['sheet']]=start+len(block['rows'])+5
     # A paired binary comparison: interest TOP2 before / after the SAME experience.
     pairs=[r for r in rows if r['before'] and r['after']]
     up=sum(int(r['before'])<4 and int(r['after'])>=4 for r in pairs)
@@ -70,7 +94,7 @@ def analyze():
         'support_routing_errors':sum(r['support']=='0' and r['support_score']!='' for r in rows),
         'pair_missing':len(rows)-len(pairs)}
     return {'synthetic':True,'sample_version':'synthetic-v1','groups':[g for g,_ in GROUPS],
-            'blocks':blocks,'results':results,'paired':paired,'qc':qc}
+            'blocks':blocks,'results':results,'paired':paired,'qc':qc,'quality':quality(rows)}
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True)
@@ -78,6 +102,8 @@ def main():
     (args.output/'analysis.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     with (args.output/'results.csv').open('w',encoding='utf-8-sig',newline='') as f:
         writer=csv.DictWriter(f,fieldnames=list(data['results'][0]));writer.writeheader();writer.writerows(data['results'])
+    with (args.output/'results.jsonl').open('w',encoding='utf-8') as f:
+        for row in data['results']:f.write(json.dumps(row,ensure_ascii=False)+'\n')
     print(f"Recomputed {len(data['results'])} results from {data['qc']['rows']} synthetic responses.")
 
 if __name__=='__main__':main()

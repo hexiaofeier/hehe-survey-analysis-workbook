@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>扫地机器人使用与体验：合成样本分析简报</title>
+<style>
+:root{--ink:#24465e;--teal:#218b91;--text:#293d4a;--muted:#657986;--line:#d4dee4;--pale:#f0f5f7;--paper:#fff}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:0}body{margin:0;background:#edf2f5;color:var(--text);font:16px/1.85 "Microsoft YaHei","Noto Sans SC",sans-serif;padding-left:268px}a{color:#2c708d;text-underline-offset:3px}a:hover{color:#16676c}#sidebar{position:fixed;inset:0 auto 0 0;width:268px;padding:30px 18px;background:var(--ink);color:white;overflow:auto;z-index:20}.brand{font-size:11px;letter-spacing:2px;color:#acc7d3;margin:0 12px 12px}.sidebar-title{font-size:19px;line-height:1.65;font-weight:700;margin:0 12px 22px;padding-bottom:20px;border-bottom:1px solid #ffffff30;overflow-wrap:anywhere}#toc a{display:block;color:#cddfe7;text-decoration:none;font-size:13px;line-height:1.65;padding:9px 11px;margin:3px 0;border-left:3px solid transparent;border-radius:3px;overflow-wrap:anywhere}#toc a[data-depth="3"]{padding-left:25px;font-size:12px}#toc a:hover,#toc a:focus-visible{background:#ffffff12;color:white}#toc a[aria-current="location"]{background:#ffffff16;color:white;border-left-color:#68c6c9;font-weight:700}.sidebar-foot{font-size:11px;line-height:1.7;color:#a5c1cf;margin:24px 13px 0}#shell{max-width:1080px;background:var(--paper);min-height:100vh;margin:0 auto;box-shadow:0 0 24px #183b5010}#brief-header{padding:48px 56px 28px;border-top:6px solid var(--teal)}.kicker{font-size:12px;letter-spacing:2px;color:var(--teal);font-weight:700;margin-bottom:12px}h1{font-size:32px;line-height:1.5;color:var(--ink);margin:0 0 18px;overflow-wrap:anywhere}.header-rule{width:52px;height:3px;background:var(--teal)}#content{padding:0 56px 50px;overflow-wrap:anywhere}p{margin:0 0 18px}h2,h3,h4{color:var(--ink);scroll-margin-top:28px;break-after:avoid}h2{font-size:23px;line-height:1.6;margin:38px 0 18px;padding-top:24px;border-top:1px solid var(--line)}h3{font-size:19px;line-height:1.65;margin:28px 0 14px}h4{font-size:17px;margin:24px 0 12px}strong{color:var(--ink)}ul,ol{padding-left:1.6em;margin:0 0 20px}li{padding-left:3px;margin-bottom:7px}blockquote{margin:24px 0;padding:18px 22px;border-left:4px solid var(--teal);background:var(--pale);color:#42606f}blockquote p:last-child{margin-bottom:0}pre{margin:22px 0;padding:18px;background:var(--pale);font-size:13px;line-height:1.65;overflow:auto;border:1px solid var(--line);border-radius:4px}code{font-family:Consolas,"Microsoft YaHei",monospace;font-size:.9em}p code,li code{background:var(--pale);padding:2px 4px;border-radius:3px}img{max-width:100%;height:auto;display:block;margin:20px auto}.table-scroll{overflow-x:auto;margin:24px 0;border:1px solid #becbd3;border-radius:2px}.result-table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;white-space:normal}.result-table th{background:var(--ink);color:white;padding:12px 14px;border:1px solid #527084;text-align:left;font-weight:700;min-width:100px}.result-table td{background:white;padding:12px 14px;border:1px solid #c6cfd5;vertical-align:top;min-width:95px}.result-table th[align="right"],.result-table td[align="right"]{text-align:right;font-variant-numeric:tabular-nums}.result-table th[align="center"],.result-table td[align="center"]{text-align:center}.result-table th:first-child,.result-table td:first-child{border-left:0}.result-table th:last-child,.result-table td:last-child{border-right:0}.result-table tr:last-child td{border-bottom:0}hr{border:0;border-top:1px solid var(--line);margin:30px 0}.footnotes{font-size:13px;color:var(--muted)}#brief-footer{padding:20px 56px 32px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);overflow-wrap:anywhere}#actions{position:fixed;top:14px;right:18px;z-index:25;display:flex;gap:8px}button{font:inherit;font-size:12px;border:1px solid #bdcdd6;background:white;color:var(--ink);padding:7px 12px;border-radius:4px;cursor:pointer;box-shadow:0 2px 8px #173f580d}button:hover{background:var(--pale)}#toc-toggle{display:none}:focus-visible{outline:3px solid #5cbbc0;outline-offset:3px}#shade{display:none}
+@media(max-width:900px){html{scroll-padding-top:0}body{padding-left:0;padding-top:50px}#sidebar{display:none;width:min(310px,88vw);top:50px;box-shadow:8px 0 24px #173f5830}#sidebar.open{display:block}#toc-toggle{display:block}#actions{top:0;left:0;right:0;height:50px;align-items:center;justify-content:space-between;padding:0 16px;background:#edf2f5f5;border-bottom:1px solid var(--line)}#brief-header{padding:30px 24px 24px}h1{font-size:27px}#content{padding:0 24px 32px}h2{font-size:21px;scroll-margin-top:72px}h3{scroll-margin-top:72px}#brief-footer{padding:20px 24px}#shade.visible{display:block;position:fixed;inset:50px 0 0;background:#16344735;z-index:15}.result-table{font-size:13px}body{font-size:15px}.table-scroll{margin:20px 0}}
+.result-table td[align="right"],.result-table td[style*="text-align: right"]{white-space:nowrap}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{@page{size:A4 portrait;margin:16mm 14mm}html{scroll-behavior:auto}body{padding:0;background:white;font-size:10.5pt;line-height:1.7;-webkit-print-color-adjust:exact;print-color-adjust:exact}#sidebar,#actions,#shade{display:none!important}#shell{max-width:none;min-height:0;box-shadow:none}#brief-header{padding:10px 0 20px;border-top:4px solid var(--teal)}h1{font-size:23pt}#content{padding:0}h2{font-size:16pt;margin-top:26px;padding-top:14px}h3{font-size:12.5pt}#brief-footer{display:none;padding:18px 0 0;font-size:8pt}.table-scroll{overflow:visible;border:0}.result-table{font-size:8.5pt;table-layout:fixed}.result-table th,.result-table td{min-width:0;padding:6px;overflow-wrap:anywhere}.result-table thead{display:table-header-group}.result-table tr,img,blockquote{break-inside:avoid}pre{white-space:pre-wrap;overflow-wrap:anywhere}a{color:inherit}a[href]::after{content:none}}
+</style>
+</head>
+<body>
+<aside id="sidebar" aria-label="简报目录"><div class="brand">SURVEY ANALYSIS</div><div class="sidebar-title">扫地机器人使用与体验：合成样本分析简报</div><nav id="toc" aria-label="章节导航"><a href="#_2" data-depth="2">现用品满意度与清洁问题需要分别比较</a>
+<a href="#_3" data-depth="2">养宠差异需要放到相同使用频率中检查</a>
+<a href="#_4" data-depth="2">新品体验提高了兴趣，但前后比较必须使用同一批人</a>
+<a href="#_5" data-depth="2">保留全部记录，缺失仅影响对应题目</a>
+<a href="#_6" data-depth="2">附件与复算</a></nav><div class="sidebar-foot">统计结果与分析解读<br>详细数据以所附工作簿为准</div></aside>
+<div id="shade" aria-hidden="true"></div>
+<div id="actions"><button id="toc-toggle" aria-controls="sidebar" aria-expanded="false" type="button">目录</button><button id="print-button" type="button">打印 / 另存为 PDF</button></div>
+<main id="shell"><header id="brief-header"><div class="kicker">问卷统计 · 分析简报</div><h1 id="_1">扫地机器人使用与体验：合成样本分析简报</h1><div class="header-rule"></div></header><article id="content">
+<p>本例使用120份完全合成答卷，养宠与无宠家庭各60份。全部记录预设纳入，不加权；逐题依据显示条件和实际有效回答计算。数据用于演示分析方法与交付形式，不代表真实消费者或品牌表现。</p>
+<h2 id="_2">现用品满意度与清洁问题需要分别比较</h2>
+<p>在总体样本中，对现用扫地机器人给出4—5分的比例为51.7%，有效评分116份；毛发缠绕的选择率为48.2%，有效作答114份。推荐意愿的NPS为-32.2，有效回答115份。</p>
+<p>满意度、具体问题与推荐意愿反映不同方面。产品团队可先用问题类型确定改进对象，再结合满意度与推荐意愿判断问题是否伴随较差评价。各项基础表均同时展示养宠与使用频率分组，避免只看总体平均。</p>
+<h2 id="_3">养宠差异需要放到相同使用频率中检查</h2>
+<p>养宠家庭中毛发缠绕的选择率为71.9%（n=57），无宠家庭为24.6%（n=57），相差47.4个百分点。下表将这项差异进一步放到相同使用频率层中比较。</p>
+<div aria-label="数据表格，可左右滚动" class="table-scroll" role="region" tabindex="0"><table class="result-table">
+<thead>
+<tr>
+<th>每周使用天数</th>
+<th>家庭条件</th>
+<th style="text-align: right;">毛发缠绕人数／有效作答</th>
+<th style="text-align: right;">选择率</th>
+<th style="text-align: right;">满意TOP2人数／有效评分</th>
+<th style="text-align: right;">满意TOP2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每周1—2天</td>
+<td>养宠家庭</td>
+<td style="text-align: right;">7／10</td>
+<td style="text-align: right;">70.0%</td>
+<td style="text-align: right;">5／10</td>
+<td style="text-align: right;">50.0%</td>
+</tr>
+<tr>
+<td>每周1—2天</td>
+<td>无宠家庭</td>
+<td style="text-align: right;">4／20</td>
+<td style="text-align: right;">20.0%</td>
+<td style="text-align: right;">11／20</td>
+<td style="text-align: right;">55.0%</td>
+</tr>
+<tr>
+<td>每周3—4天</td>
+<td>养宠家庭</td>
+<td style="text-align: right;">12／16</td>
+<td style="text-align: right;">75.0%</td>
+<td style="text-align: right;">10／17</td>
+<td style="text-align: right;">58.8%</td>
+</tr>
+<tr>
+<td>每周3—4天</td>
+<td>无宠家庭</td>
+<td style="text-align: right;">7／26</td>
+<td style="text-align: right;">26.9%</td>
+<td style="text-align: right;">16／27</td>
+<td style="text-align: right;">59.3%</td>
+</tr>
+<tr>
+<td>每周5—7天</td>
+<td>养宠家庭</td>
+<td style="text-align: right;">22／31</td>
+<td style="text-align: right;">71.0%</td>
+<td style="text-align: right;">9／31</td>
+<td style="text-align: right;">29.0%</td>
+</tr>
+<tr>
+<td>每周5—7天</td>
+<td>无宠家庭</td>
+<td style="text-align: right;">3／11</td>
+<td style="text-align: right;">27.3%</td>
+<td style="text-align: right;">9／11</td>
+<td style="text-align: right;">81.8%</td>
+</tr>
+</tbody>
+</table></div>
+<p>三个频率层的养宠与无宠差值分别为50.0、48.1和43.7个百分点。各层均呈现养宠家庭毛发问题更常见，频率构成差异不足以解释全部总体差距。这支持将养宠家庭列为毛发处理能力的重点验证对象；每层人数仍应随结果一起阅读。</p>
+<h2 id="_4">新品体验提高了兴趣，但前后比较必须使用同一批人</h2>
+<p>Q8与Q9共同有效样本为114份。体验前购买兴趣TOP2为27.2%，体验后为52.6%，净增25.4个百分点。由非TOP2转入TOP2者31人，反向转出者2人。</p>
+<p>McNemar精确双侧p值为1.3085082e-07；净变化的正态近似95%区间为16.7至34.2个百分点。本例只有1项预设检验。该比较描述同一人在本次体验中的兴趣变化，后续产品测试仍需记录实际购买或持续使用行为。</p>
+<h2 id="_5">保留全部记录，缺失仅影响对应题目</h2>
+<p>质量检查将19份记录标为证据不足，原因是部分应答题未答；其余101份在已有字段中未发现异常。没有记录被直接删除。未联系售后者的售后评分空白属于正常跳题，不计为应答缺失。</p>
+<p>统计结果按本例全120份纳入的预设计算，另在“数据质量”中比较仅合格记录的关键指标，展示纳入选择可能造成的变化。真实项目由用户决定纳入范围，质量分类与纳入决定分别保存。</p>
+<h2 id="_6">附件与复算</h2>
+<ul>
+<li><a href="sample-review.xlsx">全量标记样本表</a>：原始记录、质量标记、异常说明、规则和决定。</li>
+<li><a href="survey-analysis.xlsx">统计分析工作簿</a>：先看“分析方案”和“数据分析结论”；Q1—Q9见三个原题模块，进一步分层见“分组差异追查”，前后变化见“配对比较”。</li>
+<li><a href="responses.csv">原始合成数据</a>与<a href="../../scripts/analyze_example.py">复算脚本</a>：在仓库根目录执行 <code>python scripts/analyze_example.py --output recomputed</code>，生成结果CSV、JSON及后台JSONL索引。复算命令不覆盖工作簿。</li>
+</ul></article><footer id="brief-footer">正文来源：analysis-brief.md</footer></main>
+<script>
+(() => {
+ const sidebar=document.getElementById('sidebar'),toggle=document.getElementById('toc-toggle'),shade=document.getElementById('shade');
+ const entries=[...document.querySelectorAll('#toc a')].map(link=>({link,heading:document.getElementById(decodeURIComponent(link.hash.slice(1)))})).filter(item=>item.heading);
+ function openMenu(open){sidebar.classList.toggle('open',open);shade.classList.toggle('visible',open);toggle.setAttribute('aria-expanded',String(open));}
+ toggle.addEventListener('click',()=>openMenu(!sidebar.classList.contains('open')));
+ shade.addEventListener('click',()=>openMenu(false));
+ entries.forEach(({link})=>link.addEventListener('click',()=>openMenu(false)));
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&sidebar.classList.contains('open')){openMenu(false);toggle.focus();}});
+ function highlight(){if(!entries.length)return;const cutoff=innerWidth<=900?90:48;let selected=entries[0];for(const item of entries){if(item.heading.getBoundingClientRect().top<=cutoff)selected=item;else break;}if(scrollY+innerHeight>=document.documentElement.scrollHeight-3)selected=entries[entries.length-1];entries.forEach(item=>{if(item===selected)item.link.setAttribute('aria-current','location');else item.link.removeAttribute('aria-current');});}
+ let waiting=false;addEventListener('scroll',()=>{if(!waiting){waiting=true;requestAnimationFrame(()=>{highlight();waiting=false;});}},{passive:true});
+ addEventListener('resize',()=>{if(innerWidth>900)openMenu(false);highlight();});
+ document.getElementById('print-button').addEventListener('click',()=>window.print());
+ addEventListener('hashchange',highlight);highlight();
+ document.fonts.ready.then(()=>document.documentElement.dataset.ready='true');
+})();
+</script>
+</body>
+</html>

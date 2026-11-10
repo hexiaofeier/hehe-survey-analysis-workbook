@@ -1,40 +1,61 @@
 {
   "name": "hehe-survey-analysis-workbook",
-  "version": "2026.10.05-v1",
+  "version": "2026.11.10-v1",
   "entry_skill": "hehe-survey-analysis-workbook",
   "install_policy": "standalone",
   "required_skills": [],
   "required_local_files": [
     "SKILL.md",
     "agents/openai.yaml",
-    "references/analysis-plan-template.md",
+    "references/sample-cleaning-and-quality.md",
     "references/statistical-methods.md",
     "references/special-analysis-methods.md",
-    "references/workbook-output-spec.md"
+    "references/workbook-output-spec.md",
+    "references/analysis-plan-template.md",
+    "references/html-brief.md",
+    "references/basic-statistics.md",
+    "scripts/render_brief.py",
+    "scripts/basic_statistics.py",
+    "assets/brief.html"
   ],
   "source_sha256": {
-    "SKILL.md": "0ec6b66fc7ff722ad3742e8e7e6362e2d1a0da9a631446de06dc4f258b311123",
-    "agents/openai.yaml": "e69b1d100faf9dab42e9e260cb79597ba6972e493680b061761237a964f13d9c",
-    "references/analysis-plan-template.md": "4d9f2ea940c2e7950df0ce6284d67f0d7eb435b6bbcf6645e0fb38aac8da4211",
-    "references/statistical-methods.md": "e69fac30febbbc8e14d167cac946bfcbf9789237846a39233909d62df7859038",
-    "references/special-analysis-methods.md": "7551b1f07445854d59be531d17cb2c189e8b1b176b37f329ac24c3cd14da2378",
-    "references/workbook-output-spec.md": "22310e7bce6551300890956be24197b566c14c2d559ec043be5a4b2832e7c4f0"
+    "SKILL.md": "6775d8977918b74bfe1b723ff8a917da0e202e286576f51c0f207c14b1dd4476",
+    "agents/openai.yaml": "a746864da630212234247fb14663e65e13631a96e7e2e5f0e6ea138f5d84426f",
+    "references/sample-cleaning-and-quality.md": "46396910b583aba7be43b654e0eff9766ae973e79a6b72770107653a82fbe714",
+    "references/statistical-methods.md": "a94794d9fda6864d85a8e30b1619773ad0c7247a657b62d5a67987825fa86d64",
+    "references/special-analysis-methods.md": "589a56c7f7cdb36bea66969030c6cdc64259d15f61bf165b8c61aaf780f974ef",
+    "references/workbook-output-spec.md": "5a9b54b4a2ba2a6dea659d8b94e8b99f570f2ae0260646dbd4ce910b26960884",
+    "references/analysis-plan-template.md": "7cf64716dcf691ec5e4d44a1126138bf8ce6a5dd8699cecf285c35f18e2fc697",
+    "references/html-brief.md": "fc1c44f0da477ee3565dbbf0797022bf7adb25b22a9191982230d214fdd986bb",
+    "references/basic-statistics.md": "1b08d86fd1bcd17e8383225946f092108e10e147e32e984bed9165e6b4a8e0b5",
+    "scripts/render_brief.py": "35bcf231c6767756033770aa98be5a2852e87f8308763bb0af521b37dd3dcc9a",
+    "scripts/basic_statistics.py": "7dfc90ea2e3824dd1d61bfee55aa76868a41516aed96dfdfae1dc8e592c026b4",
+    "assets/brief.html": "273780a1057441a052040d88beeb4681864a3413f85815d476ea138e352841a6"
   },
   "public_sha256": {
-    "SKILL.md": "b18ed3525dbfd2bf95e6f0017457a7bdec365fddb5c75d072140f3e197172c58",
-    "agents/openai.yaml": "82237a7ce66170956347970e22b66c43050a0747928185211f7e2d6b0d06e9b9",
-    "references/analysis-plan-template.md": "4d9f2ea940c2e7950df0ce6284d67f0d7eb435b6bbcf6645e0fb38aac8da4211",
-    "references/statistical-methods.md": "e69fac30febbbc8e14d167cac946bfcbf9789237846a39233909d62df7859038",
-    "references/special-analysis-methods.md": "7551b1f07445854d59be531d17cb2c189e8b1b176b37f329ac24c3cd14da2378",
-    "references/workbook-output-spec.md": "22310e7bce6551300890956be24197b566c14c2d559ec043be5a4b2832e7c4f0"
+    "SKILL.md": "9ff8114c9a9ac297e3e7b04cea4b3e6fa96a26fcc3d1b3cdf7820a4c3fbddbec",
+    "agents/openai.yaml": "5c9d112ca4632c0f5a47993c431ddc2c363109e948c3541a8e72042a3e90f85a",
+    "references/sample-cleaning-and-quality.md": "0c064e040cf20b13c682819c49d965ee10df0280cf5fc0f13f2c9e5ca87b6744",
+    "references/statistical-methods.md": "a94794d9fda6864d85a8e30b1619773ad0c7247a657b62d5a67987825fa86d64",
+    "references/special-analysis-methods.md": "589a56c7f7cdb36bea66969030c6cdc64259d15f61bf165b8c61aaf780f974ef",
+    "references/workbook-output-spec.md": "5a9b54b4a2ba2a6dea659d8b94e8b99f570f2ae0260646dbd4ce910b26960884",
+    "references/analysis-plan-template.md": "7cf64716dcf691ec5e4d44a1126138bf8ce6a5dd8699cecf285c35f18e2fc697",
+    "references/html-brief.md": "fb754150e320d9cf24465bc1b3917802fd712535eca4097d426d0305d85cc085",
+    "references/basic-statistics.md": "40a92c4eb152f78f41f1605f30a312280041c927b2a559e49dd2647f732946e8",
+    "scripts/render_brief.py": "35bcf231c6767756033770aa98be5a2852e87f8308763bb0af521b37dd3dcc9a",
+    "scripts/basic_statistics.py": "7dfc90ea2e3824dd1d61bfee55aa76868a41516aed96dfdfae1dc8e592c026b4",
+    "assets/brief.html": "cbe871a40776447076b188c79acc9debb2ca54df038b0461c1bc6111b79e67f3"
   },
   "export_changes": [
     "Public name prefix and invocation",
-    "Portable output filename convention"
+    "Portable dated/versioned output filenames",
+    "LF line endings"
   ],
   "examples": {
     "synthetic": true,
     "rows": 120,
-    "source": "examples/robot-vacuum/responses.csv"
+    "source": "examples/robot-vacuum/responses.csv",
+    "data_version": "synthetic-v1",
+    "output_version": "2026.11.10-v1"
   }
 }
